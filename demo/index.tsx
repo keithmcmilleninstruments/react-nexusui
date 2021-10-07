@@ -51,8 +51,8 @@ function Core() {
               max={10}
             />
           </TitleAndChildren>
-          <TitleAndChildren title={"Button"}>
-            <Number step={1} min={0} max={10} value={4} />
+          <TitleAndChildren title={"Number"}>
+            <Number step={1} min={0} max={10} value={4} onChange={console.log} />
           </TitleAndChildren>
           <TitleAndChildren title="Position">
             <Position onChange={console.log} />
@@ -159,7 +159,7 @@ function Mobile() {
               size={[200, 100]}
               active={true}
               onChange={tilt => {
-                console.log("Tilt changed", tilt);
+                // console.log("Tilt changed", tilt);
               }}
             />
           </TitleAndChildren>
