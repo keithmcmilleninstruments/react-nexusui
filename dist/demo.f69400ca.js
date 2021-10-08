@@ -29710,8 +29710,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this[key] = Core[key];
 	    }
 	
-	    var DefaultContext = window.AudioContext || window.webkitAudioContext;
-	    this._context = context || new DefaultContext();
+	    // let DefaultContext = window.AudioContext || window.webkitAudioContext;
+	    // this._context = context || new DefaultContext();
 	
 	    this.tune = new Tune();
 	    this.note = this.tune.note.bind(this.tune);
@@ -32884,7 +32884,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _get(Object.getPrototypeOf(Number.prototype), "constructor", this).call(this, arguments, options, defaults);
 	
 	    this._value = new Step(this.settings.min, this.settings.max, this.settings.step, this.settings.value);
-	    console.log("this._value", this._value);
+	
 	    /*
 	    Default: 2. How many decimal places to clip the number's visual rendering to. This does not affect number's actual value output -- for that, set the step property to .01, .1, or 1.
 	    @type {number}
@@ -40587,6 +40587,7 @@ function TitleAndChildren(_ref) {
 }
 
 function Core() {
+  var numberRef = React.useRef();
   return React.createElement("section", {
     className: "section"
   }, React.createElement("div", {
@@ -40620,9 +40621,12 @@ function Core() {
   })), React.createElement(TitleAndChildren, {
     title: "Number"
   }, React.createElement(src_1.Number, {
-    step: 1,
+    setRef: function setRef(el) {
+      return numberRef.current = el;
+    },
+    step: .1,
     min: 0,
-    max: 10,
+    max: 365,
     value: 4,
     onChange: console.log
   })), React.createElement(TitleAndChildren, {
@@ -40800,7 +40804,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53307" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64635" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
