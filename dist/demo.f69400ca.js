@@ -29679,7 +29679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	*/
 	
 	var NexusUI = (function () {
-	  function NexusUI(context) {
+	  function NexusUI() {
 	    _classCallCheck(this, NexusUI);
 	
 	    for (var key in Interfaces) {
@@ -30275,7 +30275,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	}  */
 	
 	exports.prune = function (data, scale) {
-	  return parseFloat(data.toFixed(scale));
+	  var value = parseFloat(data);
+	
+	  if (value % 1 === 0) {
+	    value += 0.0001;
+	  }
+	
+	  return parseFloat(value.toFixed(scale));
 	};
 	
 	exports.invert = function (inNum) {
@@ -31257,6 +31263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	          this.value = math.clip(value, this.min, this.max);
 	        }
+	        if (window._debug === "nexus") console.log("old", this.oldValue, "new", this.value);
 	        if (this.oldValue !== this.value) {
 	          this.oldValue = this.value;
 	          this.changed = true;
@@ -32867,6 +32874,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	*
 	*/
 	
+	/*
+	  - add param for changeFactor
+	  - add param for decimal pad
+	  - add format method
+	  - if step is int, prevent change events on float value change
+	*/
+	
 	var Number = (function (_Interface) {
 	  function Number() {
 	    _classCallCheck(this, Number);
@@ -32923,8 +32937,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }).bind(this));
 	
 	        util.setInputFilter(this.element, function (value) {
-	          // console.log('input filter', value, /^-?\d*\.?\d*$/.test(value))
-	          return /^-?\d*\.?\d*$/.test(value);
+	          // TODO: allow format override
+	          // return /^-?\d*\.?\d*$/.test(value); // only decimals
+	          // return /^[0-9a-zA-Z]+$/.test(value); // all alphanumeric
+	          if (window._debug === "nexus") console.log("input filter", value, /^[ A-Za-z0-9./+-]*$/.test(value));
+	          return /^[ A-Za-z0-9./+-]*$/.test(value); // all alphanumeric plus decimal
 	        });
 	
 	        this.element.addEventListener("keydown", (function (e) {
@@ -32976,7 +32993,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    render: {
 	      value: function render() {
-	
 	        this.element.value = math.prune(this.value, this.decimalPlaces);
 	      }
 	    },
@@ -32998,7 +33014,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	          this.value = newvalue;
 	
 	          this.render();
-	          if (this._value.changed) {}
+	          // if (this._value.changed) {
+	          // this.emit('change',this.value);
+	          // console.log('emit:change:move', this.value, this.step)
+	          // }
 	        }
 	      }
 	    },
@@ -33067,12 +33086,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return this._value.value;
 	      },
 	      set: function (v) {
-	        if (this.step % 1 === 0) {} else {}
-	
 	        this._value.update(v);
 	
 	        if (this._value.changed) {
-	          // console.log('emit:change:set', this.value, v, this.step, 'changed',this._value.changed)
+	          if (window._debug === "nexus") console.log("emit:change:set", this.value, v, this.step, "changed", this._value.changed);
 	          this.emit("change", this.value);
 	        }
 	
@@ -33130,13 +33147,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	})(Interface);
 	
 	module.exports = Number;
-	
-	// this.emit('change',this.value);
-	// console.log('emit:change:move', this.value, this.step)
-
-	// console.log('int step', this.step, this.value, v)
-
-	// console.log('float step', this.step, this.value, v)
 
 /***/ }),
 /* 21 */
@@ -40800,7 +40810,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54503" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50311" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

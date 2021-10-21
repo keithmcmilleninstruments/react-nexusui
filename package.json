@@ -1,6 +1,6 @@
 {
   "name": "react-nexusui",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -32,7 +32,7 @@
     "web-audio-test-api": "^0.5.2"
   },
   "peerDependencies": {
-    "nexusui": "^2.1.61"
+    "nexusui": "^2.1.8"
   },
   "repository": {
     "type": "git",
