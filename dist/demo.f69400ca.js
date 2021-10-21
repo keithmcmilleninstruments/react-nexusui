@@ -40587,7 +40587,6 @@ function TitleAndChildren(_ref) {
 }
 
 function Core() {
-  var numberRef = React.useRef();
   return React.createElement("section", {
     className: "section"
   }, React.createElement("div", {
@@ -40621,12 +40620,9 @@ function Core() {
   })), React.createElement(TitleAndChildren, {
     title: "Number"
   }, React.createElement(src_1.Number, {
-    setRef: function setRef(el) {
-      return numberRef.current = el;
-    },
-    step: .1,
+    step: 1,
     min: 0,
-    max: 365,
+    max: 10,
     value: 4,
     onChange: console.log
   })), React.createElement(TitleAndChildren, {
@@ -40804,7 +40800,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64635" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54503" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
